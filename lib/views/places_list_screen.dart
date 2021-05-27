@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:great_places/utils/app_routes.dart';
 
 class PlacesListScreen extends StatefulWidget {
   @override
@@ -11,7 +12,14 @@ class _PlacesListScreenState extends State<PlacesListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Meus Lugares'),
-        actions: [],
+        actions: [
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () {
+              Navigator.of(context).pushNamed(AppRoutes.PLACE_FORM);
+            },
+          ),
+        ],
       ),
       body: Center(
         child: CircularProgressIndicator(),
