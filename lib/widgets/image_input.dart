@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-// ignore: import_of_legacy_library_into_null_safe
+
 import 'package:image_picker/image_picker.dart';
 
 class ImageInput extends StatefulWidget {
@@ -9,15 +9,14 @@ class ImageInput extends StatefulWidget {
 }
 
 class _ImageInputState extends State<ImageInput> {
-  late File _storedImage;
+  late File? _storedImage;
   _takePicture() async {
     final ImagePicker _picker = ImagePicker();
-    PickedFile imageFile = await _picker.getImage(
+    PickedFile? imageFile = await _picker.getImage(
       source: ImageSource.camera,
       maxHeight: 600,
     );
 
-    // ignore: unnecessary_null_comparison
     if (imageFile == null) return;
 
     setState(() {
@@ -39,10 +38,9 @@ class _ImageInputState extends State<ImageInput> {
             ),
           ),
           alignment: Alignment.center,
-          // ignore: unnecessary_null_comparison
           child: _storedImage != null
               ? Image.file(
-                  _storedImage,
+                  _storedImage!,
                   width: double.infinity,
                   fit: BoxFit.cover,
                 )
