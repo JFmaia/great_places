@@ -23,21 +23,30 @@ class _PlacesListScreenState extends State<PlacesListScreen> {
           ),
         ],
       ),
-      body: Consumer<GreatPlaces>(
-        builder: (context, greatPlaces, _) => greatPlaces.itemsCount == 0
+      body: FutureBuilder(
+        future: Provider.of<GreatPlaces>(context, listen: false).loadPlaces(),
+        builder: (ctx, snapshot) => snapshot.connectionState ==
+                ConnectionState.waiting
             ? Center(
-                child: Text('Nenhum local cadastrado!'),
+                child: CircularProgressIndicator(),
               )
-            : ListView.builder(
-                itemCount: greatPlaces.itemsCount,
-                itemBuilder: (ctx, i) => ListTile(
-                  leading: CircleAvatar(
-                    backgroundImage:
-                        FileImage(greatPlaces.itemByIndex(i).image),
-                  ),
-                  title: Text(greatPlaces.itemByIndex(i).title),
-                  onTap: () {},
-                ),
+            : Consumer<GreatPlaces>(
+                builder: (context, greatPlaces, _) =>
+                    greatPlaces.itemsCount == 0
+                        ? Center(
+                            child: Text('Nenhum local cadastrado!'),
+                          )
+                        : ListView.builder(
+                            itemCount: greatPlaces.itemsCount,
+                            itemBuilder: (ctx, i) => ListTile(
+                              leading: CircleAvatar(
+                                backgroundImage:
+                                    FileImage(greatPlaces.itemByIndex(i).image),
+                              ),
+                              title: Text(greatPlaces.itemByIndex(i).title),
+                              onTap: () {},
+                            ),
+                          ),
               ),
       ),
     );
