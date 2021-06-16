@@ -21,7 +21,6 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: GoogleMap(
-        mapType: MapType.hybrid,
         initialCameraPosition: CameraPosition(
           target: LatLng(
             widget.initialLocation.latitude,
